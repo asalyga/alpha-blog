@@ -22,6 +22,7 @@
 
 #home_container {
   margin-top: 25px;
+
 }
 
 .jumbotron {
@@ -30,4 +31,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 420px;
+}
+
+#page-content {
+  flex: 1 0 auto;
+  background-color: lightgray;
 }
