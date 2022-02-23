@@ -1,12 +1,12 @@
 # Articles controller
 class ArticlesController < ApplicationController
 
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: %i[show edit update destroy]
 
   def show; end
 
   def index
-    @articles = Article.all
+    @articles = Article.paginate(page: params[:page], per_page: 1)
   end
 
   def new
@@ -17,7 +17,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
     @article.user = User.first
     if @article.save
-      flash[:notice] = 'Article was created successfully'
+      # flash[:notice] = 'Article was created successfully'
       redirect_to @article
     else
       render 'new'
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      flash[:notice] = 'Article was updated successfully'
+      # flash[:notice] = 'Article was updated successfully'
       redirect_to @article
     else
       render 'edit'
@@ -41,6 +41,7 @@ class ArticlesController < ApplicationController
   end
 
   private
+  
   def set_article
     @article = Article.find(params[:id])
   end
@@ -48,5 +49,4 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :description)
   end
-
 end
